@@ -17,16 +17,93 @@ Dimensionality Reduction with PCA\\
 AI/ML Guild Lab \#4\\
 \today \\
 \end{flushleft}
-Labeled data to create models for assigning labels to unseen data. This
-lab is the first step in using unsupervised techniques. We're looking for
-charateristics or patterns that inherently arise from the data itself.
 
-Sometimes your data isn't very nice to you. The dimensions are just too damn
-high! It's hard to vizualize, there are too many features that are too
-interconnected. Principal Component Analysis is a technique that can help
+\section{Introduction}
+
+Often your data isn't very nice to you. Sometimes, the dimensions are just too damn
+high! They are hard to vizualize, there are too many features and many seem
+intertwined. Principal Component Analysis is an unsupervsied technique that can help
 resolve theses issues and can aid in model building.
 
+\subsection{The Curse of Dimensionality}
+
+``As the number of features or dimensions grows, the amount of data we need to
+generalize accurately grows exponentially.''
+-- \href{https://www.cc.gatech.edu/people/charles-isbell}{Charles Isbell}
+
+PCA is one way to reduce the number dimensions (thus also reducing the amount of
+data needed to train a good model.) Reducing the number of features down to a
+core set that provides the most information (most variance) is called
+\emph{Feature Selection}.
+
 \section{Principle Component Analysis}
+
+There are several different ways to derive PCA, this is going to go over the
+\emph{Maximum Variance} approach.
+
+PCA can be defined as the orthogonal project of data onto a lower dimensional
+linear space that is called the ``principal subspace'', such that the variance
+of the projected data is maximized.
+
+Principal Component Analysis is done by evaulating the mean $\bar{x}$ and the
+covariance matrix $S$ of the data set and then calculating the $M$ eigenvectors
+of $S$ that correspond to the $M$ largest eigenvalues.
+
+Ok.
+
+Let's go over some of the tools for that.
+
+The mean of our data:
+\[
+    \bar{x} = \frac{1}{N}\sum_{n=1}^{N}(x_n)
+\]
+
+That's pretty simple.
+
+The variance of our data:
+
+\[
+    \sigma^2 = \frac{\sum_{n=1}^{N} (x_i - \bar{x})^2}{n}
+\]
+i.e. The variability from the mean.
+
+The covariance of our data:
+
+\[
+    S = \frac{1}{N} \sum_{n=1}^{N} (x_n - \bar{x})(x_n - \bar{x})^{\textbf{T}}
+\]
+
+Measures how different variables/features/axes vary jointly. i.e. greater values
+in one feature, corresponds to greater values in another feature.
+
+To get from our covariance matrix to principal components, we have to use
+\href{https://en.wikipedia.org/wiki/Lagrange_multiplier}{Langrangian
+multipliers}.
+
+Along the way we would calculate \href{https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors}{eigenvectors and eigenvalues}.
+These aren't too difficult to understand. If $T$ is a linear transformation and
+$v$ is non-zero vector, then $v$ is an eigenvector of $T$ if
+
+\[
+    T(v) = \lambda v
+\]
+
+$\lambda$ is a scalar and is the eigenvalue associated with $v$.
+
+Which if you read the article on LaGrangians you'll see the main formula defined
+as:
+
+\[
+    \mathcal{L}(x, \lambda) = f(x) - \lambda g(x)
+\]
+
+If you know we're looking for a set of eigenvector and eigenvalues, you can imagine
+that we're likely solving for multiple Lagrangians iteratively to get to the top
+$M$ principal components. What we're maximizing for with the LaGrangian is the
+variance of the feature. In the end of this process, we'll have a set of
+dimensions (corresponding to features) sorted by variance.
+
+Luckily, there are many libraries available that do these computations for us.
 
 \end{document}
 
