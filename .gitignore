@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+notes/lab4.aux
+notes/lab4.fdb_latexmk
+notes/lab4.fls
+notes/lab4.out
+notes/lab4.pdf
+notes/lab4.synctex.gz
