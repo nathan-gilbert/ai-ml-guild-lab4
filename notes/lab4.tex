@@ -20,16 +20,20 @@ AI/ML Guild Lab \#4\\
 
 \section{Introduction}
 
-Often your data isn't very nice to you. Sometimes, the dimensions are just too damn
-high! They are hard to vizualize, there are too many features and many seem
-intertwined. Principal Component Analysis is an unsupervsied technique that can help
-resolve theses issues and can aid in model building.
+Often your data isn't very nice to you. Sometimes, the dimensions are just too
+damn high! They are hard to vizualize, there are too many features and many seem
+intertwined. Principal Component Analysis is an unsupervsied technique that can
+help resolve theses issues and can aid in model building and data visualization.
 
 \subsection{The Curse of Dimensionality}
 
 ``As the number of features or dimensions grows, the amount of data we need to
 generalize accurately grows exponentially.''
 -- \href{https://www.cc.gatech.edu/people/charles-isbell}{Charles Isbell}
+
+Having a large feature set sounds good on paper, but it also has consequences or
+requiring more data to train a model. A common rule of thumb is that there needs
+to be 5 training points per dimension (feature).
 
 PCA is one way to reduce the number dimensions (thus also reducing the amount of
 data needed to train a good model.) Reducing the number of features down to a
@@ -41,13 +45,12 @@ core set that provides the most information (most variance) is called
 There are several different ways to derive PCA, this is going to go over the
 \emph{Maximum Variance} approach.
 
-PCA can be defined as the orthogonal project of data onto a lower dimensional
-linear space that is called the ``principal subspace'', such that the variance
-of the projected data is maximized.
+\textbf{PCA can be defined as the orthogonal project of data onto a lower dimensional
+linear space such that the variance of the projected data is maximized.}
 
-Principal Component Analysis is done by evaulating the mean $\bar{x}$ and the
+\emph{PCA is computed by evaulating the mean $\bar{x}$ and the
 covariance matrix $S$ of the data set and then calculating the $M$ eigenvectors
-of $S$ that correspond to the $M$ largest eigenvalues.
+of $S$ that correspond to the $M$ largest eigenvalues.}
 
 Ok.
 
@@ -76,8 +79,21 @@ The covariance of our data:
 Measures how different variables/features/axes vary jointly. i.e. greater values
 in one feature, corresponds to greater values in another feature.
 
+The resulting matrix looks like this:
+
+\[
+S = \begin{pmatrix}
+    \sigma(x_1, x_1) & \dots & \sigma(x_1, x_n)\\
+    \vdots & \ddots & \vdots  \\
+    \sigma(x_n, x_1)  & \dots & \sigma(x_n, x_n)
+    \end{pmatrix}
+\]
+
+The diagonal entries of the covariance matrix are just the variances for that
+data point.
+
 To get from our covariance matrix to principal components, we have to use
-\href{https://en.wikipedia.org/wiki/Lagrange_multiplier}{Langrangian
+\href{https://en.wikipedia.org/wiki/Lagrange_multiplier}{Lagrangian
 multipliers}.
 
 Along the way we would calculate \href{https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors}{eigenvectors and eigenvalues}.
@@ -90,7 +106,7 @@ $v$ is non-zero vector, then $v$ is an eigenvector of $T$ if
 
 $\lambda$ is a scalar and is the eigenvalue associated with $v$.
 
-Which if you read the article on LaGrangians you'll see the main formula defined
+Which if you read the article on Lagrangians you'll see the main formula defined
 as:
 
 \[
@@ -99,9 +115,9 @@ as:
 
 If you know we're looking for a set of eigenvector and eigenvalues, you can imagine
 that we're likely solving for multiple Lagrangians iteratively to get to the top
-$M$ principal components. What we're maximizing for with the LaGrangian is the
+$M$ principal components. What we're maximizing for with the Lagrangian is the
 variance of the feature. In the end of this process, we'll have a set of
-dimensions (corresponding to features) sorted by variance.
+dimensions, corresponding to features, sorted by variance.
 
 Luckily, there are many libraries available that do these computations for us.
 
